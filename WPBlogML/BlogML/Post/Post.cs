@@ -37,6 +37,12 @@ namespace WPBlogML.BlogML.Post
         public CategoryReferences Categories { get; set; }
 
         /// <summary>
+        /// Tags for this post
+        /// </summary>
+        [XmlElement("tags")]
+        public TagReferences Tags { get; set; }
+
+        /// <summary>
         /// Comments on this post
         /// </summary>
         [XmlElement("comments")]
@@ -150,6 +156,20 @@ namespace WPBlogML.BlogML.Post
 
                 foreach (var reference in categories)
                     Categories.CategoryReferenceList.Add(new CategoryReference(reference));
+            }
+
+            // Tags for this post.
+            var tags =
+                from tag in item.Elements("category")
+                where tag.Attribute("domain") != null && tag.Attribute("domain").Value == "post_tag"
+                select tag;
+
+            if (0 < tags.Count())
+            {
+                Tags = new TagReferences();
+
+                foreach (var reference in tags)
+                    Tags.TagReferenceList.Add(new TagReference(reference));
             }
 
             // Comments on this post.

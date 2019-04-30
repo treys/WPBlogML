@@ -47,6 +47,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlogML\Post\TagReference.cs" />
+    <Compile Include="BlogML\Post\TagReferences.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BlogML\Blog.cs" />
@@ -76,16 +78,7 @@
     <Compile Include="Schemas.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="BlogML\" />
-    <Folder Include="BlogML\Post\" />
-    <Folder Include="BlogML\Author\" />
-    <Folder Include="BlogML\Post\" />
-    <Folder Include="BlogML\Category\" />
-    <Folder Include="BlogML\Author\" />
-    <Folder Include="BlogML\ExtendedProperty\" />
-    <Folder Include="BlogML\Common\" />
-  </ItemGroup>
+  <ItemGroup />
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>

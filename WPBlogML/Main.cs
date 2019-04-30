@@ -111,7 +111,7 @@ namespace WPBlogML
             var errors = new StringBuilder();
 
             var settings = new XmlReaderSettings();
-            settings.Schemas.Add(Schemas.BlogML2_0);
+            settings.Schemas.Add(Schemas.BlogML2_0_With_Tags);
             settings.ValidationType = ValidationType.Schema;
             settings.ValidationEventHandler += (object sender, ValidationEventArgs e) =>
             {
