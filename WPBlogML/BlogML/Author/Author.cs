@@ -1,5 +1,6 @@
 namespace WPBlogML.BlogML.Author
 {
+    using System.Xml.Linq;
     using System.Xml.Serialization;
     using WPBlogML.BlogML.Common;
 
@@ -15,9 +16,13 @@ namespace WPBlogML.BlogML.Author
         [XmlAttribute("email")]
         public string Email { get; set; }
 
-        public Author()
-            : base()
+        public Author() : base() { }
+
+        public Author(XElement author) : base()
         {
+            ID = Util.Slug(((XCData)author.Element(Util.wpNamespace + "author_login").FirstNode).Value);
+            Email = ((XCData)author.Element(Util.wpNamespace + "author_email").FirstNode).Value;
+            Title = ((XCData)author.Element(Util.wpNamespace + "author_display_name").FirstNode).Value;
         }
     }
 }

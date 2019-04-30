@@ -53,10 +53,26 @@ namespace WPBlogML
             // Create the blog with the base information.
             var blog = new Blog(channel);
 
+            GetAuthors(blog, channel);
             GetCategories(blog, channel);
             GetPosts(blog, channel);
 
             return blog;
+        }
+
+        /// <summary>
+        /// Gets the list of authors from the wp:author list in the WXR feed.
+        /// </summary>
+        /// <param name="blog">The <see cref="WPBlogML.BlogML.Blog"/> being constructed</param>
+        /// <param name="channel">The RSS channel in the WXR feed</param>
+        private void GetAuthors(Blog blog, XElement channel)
+        {
+            var authors =
+                from author in channel.Elements(Util.wpNamespace + "author")
+                select author;
+
+            foreach (var authorElement in authors)
+                blog.Authors.AuthorList.Add(new Author(authorElement));
         }
 
         /// <summary>
@@ -119,7 +135,7 @@ namespace WPBlogML
 
                 // We need to get the author reference separately, as we need the AuthorList from the blog.
                 var author = new AuthorReference();
-                author.ID = GetAuthorReference(blog, item.Element(Util.dcNamespace + "creator").FirstNode.ToString());
+                author.ID = GetAuthorReference(blog, ((XCData)item.Element(Util.dcNamespace + "creator").FirstNode).Value);
 
                 post.Authors.AuthorReferenceList.Add(author);
 
