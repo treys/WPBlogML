@@ -109,7 +109,7 @@ namespace WPBlogML.BlogML.Post
             // Object properties.
             Content = new Content();
             Content.Type = Content.TypeHTML;
-            Content.Value = ((XCData)item.Element(Util.contentNamespace + "encoded").FirstNode).Value;
+            Content.Value = Util.ReplaceCRLF(((XCData)item.Element(Util.contentNamespace + "encoded").FirstNode).Value);
 
             PostName = new Title();
             PostName.Type = Content.TypeHTML;

@@ -82,6 +82,17 @@ namespace WPBlogML
         }
 
         /// <summary>
+        /// Replaces CRLFs with HTML BR tags.
+        /// </summary>
+        /// <param name="text">Target text for replacement</param>
+        /// <returns></returns>
+        public static string ReplaceCRLF(string text)
+        {
+            text = text.Replace("\r\n", "\n");
+            return text.Replace("\n", "<br/>\n");
+        }
+
+        /// <summary>
         /// Create a "slug" - all lower case, no spaces, no special characters.
         /// </summary>
         /// <param name="text">
