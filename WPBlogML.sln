@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordPress to BlogML Export", "WPBlogML\WordPress to BlogML Export.csproj", "{A97D24CC-6852-4087-9B25-9FBBDB7887CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A97D24CC-6852-4087-9B25-9FBBDB7887CF}.Debug|x86.ActiveCfg = Debug|x86
+		{A97D24CC-6852-4087-9B25-9FBBDB7887CF}.Debug|x86.Build.0 = Debug|x86
+		{A97D24CC-6852-4087-9B25-9FBBDB7887CF}.Release|x86.ActiveCfg = Release|x86
+		{A97D24CC-6852-4087-9B25-9FBBDB7887CF}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = WPBlogML\WordPress to BlogML Export.csproj
+		Policies = $0
+		$0.StandardHeader = $1
+		$1.Text = 
+		$1.inheritsSet = Apache2License
+		$0.TextStylePolicy = $2
+		$2.FileWidth = 120
+		$2.TabWidth = 4
+		$2.inheritsSet = Mono
+		$2.inheritsScope = text/plain
+		$2.scope = text/plain
+		version = 0.5
+	EndGlobalSection
+EndGlobal
