@@ -123,7 +123,7 @@ namespace WPBlogML.BlogML.Post
             }
             else
             {
-                var excerpt = excerptNode.FirstNode.ToString();
+                var excerpt = ((XCData)excerptNode.FirstNode).Value;
 
                 if (String.Empty == excerpt)
                 {
