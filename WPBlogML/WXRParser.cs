@@ -1,6 +1,7 @@
 namespace WPBlogML
 {
     using System;
+    using System.Collections;
     using System.IO;
     using System.Linq;
     using System.Xml.Linq;
@@ -133,6 +134,11 @@ namespace WPBlogML
             {
                 var post = new Post(item);
 
+                // We need to get the thumbnail image seperately, as we need the attachment items from the blog.
+                var attachment = GetThumbnailAttachment(item, channel);
+                if (attachment != null)
+                    post.Attachments.AttachmentList.Add(attachment);
+
                 // We need to get the author reference separately, as we need the AuthorList from the blog.
                 var author = new AuthorReference();
                 author.ID = GetAuthorReference(blog, ((XCData)item.Element(Util.dcNamespace + "creator").FirstNode).Value);
@@ -180,6 +186,67 @@ namespace WPBlogML
             }
 
             return id;
+        }
+
+        /// <summary>
+        /// Finds the first thumbnail associated with the post and creates an attachment object 
+        /// representing the thumbnail.
+        /// </summary>
+        /// <param name="item">XML element that represents this blog post item</param>
+        /// <param name="channel">The RSS channel in the WXR feed</param>
+        /// <returns>An attachment object if the post has a thumbnail, otherwise null</returns>
+        private Attachment GetThumbnailAttachment(XElement item, XElement channel)
+        {
+            var thumbnailReference =
+                    from metaKey in item.Descendants(Util.wpNamespace + "meta_key")
+                    where metaKey.Value == "_thumbnail_id"
+                    select metaKey.NextNode as XElement;
+
+            if (0 == thumbnailReference.Count())
+                return null; // No thumbnail found
+
+            // Get thumbnail item
+            var thumbnail =
+                from thumbnailItem in channel.Elements("item")
+                where thumbnailItem.Element(Util.wpNamespace + "post_id").Value == thumbnailReference.First().Value
+                select thumbnailItem;
+
+            // Get thumbnail metadata
+            var metadataElement =
+                from metaKey in thumbnail.First().Descendants(Util.wpNamespace + "meta_key")
+                where metaKey.Value == "_wp_attachment_metadata"
+                select metaKey.NextNode as XElement;
+
+            // Get filename and extension from serialized metadata
+            var serializer = new Serializer();
+            var metadata = (Hashtable)serializer.Deserialize(metadataElement.First().Value);
+            var filename = metadata["file"].ToString();
+            var extension = filename.Substring(filename.LastIndexOf("."));
+
+            string mimeType = "image/jpeg";
+            switch (extension)
+            {
+                case ".jpg":
+                    mimeType = "image/jpeg";
+                    break;
+                case ".png":
+                    mimeType = "image/png";
+                    break;
+                case ".gif":
+                    mimeType = "image/gif";
+                    break;
+            }
+
+            var url = thumbnail.First().Element(Util.wpNamespace + "attachment_url").Value;
+
+            // Create attachment
+            var attachment = new Attachment();
+            attachment.Embedded = false;
+            attachment.ExternalURI = url;
+            attachment.MimeType = mimeType;
+            attachment.URL = url;
+
+            return attachment;
         }
     }
 }

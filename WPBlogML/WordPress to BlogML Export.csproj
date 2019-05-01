@@ -52,6 +52,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="BlogML\Blog.cs" />
+    <Compile Include="Serializer.cs" />
     <Compile Include="WXRParser.cs" />
     <Compile Include="BlogML\Post\CategoryReference.cs" />
     <Compile Include="BlogML\Post\CategoryReferences.cs" />

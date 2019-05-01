@@ -204,6 +204,7 @@ namespace WPBlogML.BlogML.Post
             }
 
             Authors = new AuthorReferences();
+            Attachments = new Attachments();
         }
     }
 }

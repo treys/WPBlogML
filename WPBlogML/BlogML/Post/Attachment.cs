@@ -7,7 +7,7 @@ namespace WPBlogML.BlogML.Post
     /// Implementation of the "attachmentType" from the BlogML XSD.
     /// </summary>
     [XmlRoot("attachment")]
-    public class Attachment : Node
+    public class Attachment
     {
         /// <summary>
         /// Is this resource embedded?
